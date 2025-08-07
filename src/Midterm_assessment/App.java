@@ -11,6 +11,7 @@ public class App {
         ArrayList<Product> allProducts = new ArrayList<>();
         ArrayList<String> output = new ArrayList<>();
 
+        System.out.println("Введите данные: ");
         String customersLine = scanner.nextLine();
         String[] customersData = customersLine.split(";");
         for (String customer : customersData) {
