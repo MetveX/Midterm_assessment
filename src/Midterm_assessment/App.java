@@ -11,7 +11,6 @@ public class App {
         ArrayList<Product> allProducts = new ArrayList<>();
         ArrayList<String> output = new ArrayList<>();
 
-        // Чтение покупателей (одна строка с разделителем ";")
         String customersLine = scanner.nextLine();
         String[] customersData = customersLine.split(";");
         for (String customer : customersData) {
@@ -33,7 +32,6 @@ public class App {
             persons.add(new Person(name, money));
         }
 
-        // Чтение продуктов (одна строка с разделителем ";")
         String productsLine = scanner.nextLine();
         String[] productsData = productsLine.split(";");
         for (String product : productsData) {
@@ -51,7 +49,6 @@ public class App {
             allProducts.add(new Product(name, cost));
         }
 
-        // Обработка покупок
         while (true) {
             String line = scanner.nextLine();
             if (line.equals("END")) break;
@@ -62,7 +59,6 @@ public class App {
             String personName = parts[0].trim();
             String productName = parts[1].trim();
 
-            // Находим покупателя
             Person currentPerson = null;
             for (Person p : persons) {
                 if (p.name.equals(personName)) {
@@ -71,7 +67,6 @@ public class App {
                 }
             }
 
-            // Находим продукт
             Product currentProduct = null;
             for (Product p : allProducts) {
                 if (p.name.equals(productName)) {
@@ -80,7 +75,6 @@ public class App {
                 }
             }
 
-            // Пытаемся купить
             if (currentPerson != null && currentProduct != null) {
                 if (currentPerson.money >= currentProduct.cost) {
                     currentPerson.money -= currentProduct.cost;
@@ -92,10 +86,8 @@ public class App {
             }
         }
 
-        // Добавляем пустую строку после сообщений о покупках
         output.add("");
 
-        // Формирование итоговых списков
         for (Person p : persons) {
             if (p.products.isEmpty()) {
                 output.add(p.name + " - Ничего не куплено");
@@ -109,7 +101,6 @@ public class App {
             }
         }
 
-        // Вывод всех результатов
         for (String line : output) {
             System.out.println(line);
         }
