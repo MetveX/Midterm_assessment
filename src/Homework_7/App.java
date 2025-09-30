@@ -1,4 +1,4 @@
-package Midterm_assessment;
+package Homework_7;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -42,12 +42,17 @@ public class App {
             String name = parts[0].trim();
             double cost = Double.parseDouble(parts[1].trim());
 
-            if (cost < 0) {
-                System.out.println("Деньги не могут быть отрицательными");
-                return;
+            if (allProducts.size() % 2 == 0) {
+                double discount = cost * 0.1; // 10% скидка
+                allProducts.add(new DiscountProduct(name, cost, discount));
+            } else {
+                allProducts.add(new Product(name, cost));
             }
+        }
 
-            allProducts.add(new Product(name, cost));
+        System.out.println("\n=== Информация о всех продуктах ===");
+        for (Product p : allProducts) {
+            System.out.println(p.toString());
         }
 
         while (true) {
@@ -70,16 +75,16 @@ public class App {
 
             Product currentProduct = null;
             for (Product p : allProducts) {
-                if (p.name.equals(productName)) {
+                if (p.getName().equals(productName)) {
                     currentProduct = p;
                     break;
                 }
             }
 
             if (currentPerson != null && currentProduct != null) {
-                if (currentPerson.money >= currentProduct.cost) {
-                    currentPerson.money -= currentProduct.cost;
-                    currentPerson.products.add(currentProduct.name);
+                if (currentPerson.money >= currentProduct.getPrice()) {
+                    currentPerson.money -= currentProduct.getPrice();
+                    currentPerson.products.add(currentProduct.getName());
                     output.add(personName + " купил " + productName);
                 } else {
                     output.add(personName + " не может позволить себе " + productName);
@@ -105,5 +110,7 @@ public class App {
         for (String line : output) {
             System.out.println(line);
         }
+
+        scanner.close();
     }
 }
